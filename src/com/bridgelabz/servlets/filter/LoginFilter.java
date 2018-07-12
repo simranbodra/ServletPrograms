@@ -34,8 +34,7 @@ public void destroy() {
 		String password = request.getParameter("passkey");
 		System.out.println(password);
 		
-		Connection connection = dao.getDatabaseAccess();
-		User user = dao.getUser(email, password, connection);
+		User user = dao.getUser(email, password);
 				
 		if(user != null) {
 			if(password.equals(user.getPassword())) {

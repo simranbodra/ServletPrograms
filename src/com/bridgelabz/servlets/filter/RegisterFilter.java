@@ -13,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import com.bridgelabz.servlets.repository.UserRepositoryImpl;
+import com.bridgelabz.servlets.model.User;
 import com.bridgelabz.servlets.repository.UserRepository;
 
 public class RegisterFilter implements Filter{
@@ -27,17 +28,18 @@ public void destroy() {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		UserRepository dao = new UserRepositoryImpl();
+		PrintWriter out = response.getWriter();
 		
-		String email=request.getParameter("email");
-		String password=request.getParameter("password");
-		System.out.println(email);
+		String email = request.getParameter("email");
+		String password = request.getParameter("passkey");
+		System.out.println(password);
 		
-		Connection connection = dao.getDatabaseAccess();
-		if(dao.checkUserInDatabase(email, connection)==false) {
+		User user = dao.getUser(email, password);
+		
+		if(user == null) {
 			chain.doFilter(request, response);	
 		}
 		else {
-			PrintWriter out = response.getWriter();
 			out.print("<html><p>This email is already registered...</p></html>");
 			RequestDispatcher dispatch = request.getRequestDispatcher("Home.jsp");
 			dispatch.include(request, response);	
