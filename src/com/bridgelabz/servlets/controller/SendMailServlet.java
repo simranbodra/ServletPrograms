@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SendMailServlet extends HttpServlet{
 	
 	final String admin = "simranbodra9619@gmail.com";
-	final String passwordAdmin = "simran96";
+	final String passwordAdmin = "*********";
 	
     public void doGet(HttpServletRequest request,HttpServletResponse response)  
         throws ServletException, IOException {  
